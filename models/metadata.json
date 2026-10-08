@@ -1,0 +1,24 @@
+{
+  "model_version": "1.0.0",
+  "run_id": "ce62ee3996c54621b42d37f447455f99",
+  "metrics": {
+    "roc_auc": 0.7174555074555073,
+    "f1": 0.40662373505059796,
+    "accuracy": 0.73125
+  },
+  "python": "3.9.6",
+  "scikit_learn": "1.6.1",
+  "training_rows": 9600,
+  "features": [
+    "queue_minutes",
+    "estimated_work_minutes",
+    "worker_load",
+    "worker_experience_months",
+    "distance_km",
+    "request_hour",
+    "recent_worker_completion_rate",
+    "recent_category_delay_rate",
+    "priority",
+    "is_weekend"
+  ]
+}
