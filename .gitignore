@@ -1,0 +1,218 @@
+# ============================================================
+# SentinelML - ML Prediction Service
+# Python | Machine Learning | FastAPI | MLOps
+# ============================================================
+
+
+# ------------------------------------------------------------
+# 1. Python virtual environments
+# ------------------------------------------------------------
+
+.venv/
+venv/
+env/
+ENV/
+virtualenv/
+.conda/
+
+
+# ------------------------------------------------------------
+# 2. Python cache and compiled files
+# ------------------------------------------------------------
+
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+*.so
+
+
+# ------------------------------------------------------------
+# 3. Python packaging
+# ------------------------------------------------------------
+
+build/
+dist/
+*.egg-info/
+.eggs/
+*.egg
+pip-wheel-metadata/
+
+
+# ------------------------------------------------------------
+# 4. Testing and coverage
+# ------------------------------------------------------------
+
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+test-results/
+.tox/
+.nox/
+.hypothesis/
+
+
+# ------------------------------------------------------------
+# 5. Jupyter Notebook
+# ------------------------------------------------------------
+
+.ipynb_checkpoints/
+.profile_default/
+
+
+# ------------------------------------------------------------
+# 6. IDE and editor settings
+# ------------------------------------------------------------
+
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+
+# ------------------------------------------------------------
+# 7. macOS and operating system files
+# ------------------------------------------------------------
+
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+Desktop.ini
+
+
+# ------------------------------------------------------------
+# 8. Environment variables and secrets
+# ------------------------------------------------------------
+
+.env
+.env.*
+!.env.example
+
+*.pem
+*.key
+*.p12
+*.pfx
+secrets/
+credentials/
+
+
+# ------------------------------------------------------------
+# 9. ML datasets and generated data
+# ------------------------------------------------------------
+
+data/raw/*
+data/processed/*
+data/monitoring/*
+
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!data/monitoring/.gitkeep
+
+datasets/
+*.parquet
+*.feather
+*.arrow
+
+
+# ------------------------------------------------------------
+# 10. Trained ML models and checkpoints
+# ------------------------------------------------------------
+
+models/*.joblib
+models/*.pkl
+models/*.pickle
+models/*.onnx
+models/*.h5
+models/*.hdf5
+models/*.pt
+models/*.pth
+models/*.ckpt
+models/*.safetensors
+
+checkpoints/
+artifacts/
+saved_models/
+
+!models/.gitkeep
+
+
+# ------------------------------------------------------------
+# 11. MLflow tracking
+# ------------------------------------------------------------
+
+mlruns/
+mlartifacts/
+mlflow.db
+mlflow.db-*
+mlflow.sqlite
+mlflow.sqlite-*
+mlflow-artifacts/
+
+
+# ------------------------------------------------------------
+# 12. Logs and monitoring
+# ------------------------------------------------------------
+
+*.log
+logs/
+monitoring/logs/
+prometheus_data/
+grafana_data/
+
+
+# ------------------------------------------------------------
+# 13. Local databases
+# ------------------------------------------------------------
+
+*.sqlite
+*.sqlite3
+*.db
+*.db-shm
+*.db-wal
+
+
+# ------------------------------------------------------------
+# 14. Temporary files
+# ------------------------------------------------------------
+
+tmp/
+temp/
+.cache/
+*.tmp
+*.bak
+
+
+# ------------------------------------------------------------
+# 15. Docker local overrides
+# ------------------------------------------------------------
+
+docker-compose.override.yml
+
+
+# ------------------------------------------------------------
+# 16. Terraform and cloud infrastructure
+# ------------------------------------------------------------
+
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.tfvars.example
+
+
+# ------------------------------------------------------------
+# 17. Keep important project files
+# ------------------------------------------------------------
+
+!README.md
+!requirements.txt
+!pyproject.toml
+!Dockerfile
+!docker-compose.yml
+!Makefile
+!.github/
