@@ -2,7 +2,9 @@ import json
 import time
 from pathlib import Path
 from threading import Lock
+
 from prometheus_client import Counter, Histogram
+
 from app.core.config import INFERENCE_LOG
 
 REQUESTS = Counter("sentinelml_predictions_total", "Prediction requests", ["prediction"])
