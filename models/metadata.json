@@ -1,6 +1,6 @@
 {
   "model_version": "1.0.0",
-  "run_id": "4b70528ebbd9479daf933109feb35cee",
+  "run_id": "2239a2991e6e4f279584a5eba559e176",
   "metrics": {
     "roc_auc": 0.7174555074555073,
     "f1": 0.40662373505059796,
