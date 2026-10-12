@@ -1,10 +1,13 @@
-from pathlib import Path
 import sys
+from pathlib import Path
+
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 import json
 import platform
+
 import joblib
+
 try:
     import mlflow
     import mlflow.sklearn
@@ -19,8 +22,9 @@ from sklearn.metrics import accuracy_score, f1_score, roc_auc_score
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
-from app.core.config import MODEL_PATH, METADATA_PATH, MODEL_VERSION, REFERENCE_PATH
-from app.ml.features import NUMERIC_FEATURES, CATEGORICAL_FEATURES, ALL_FEATURES
+
+from app.core.config import METADATA_PATH, MODEL_PATH, MODEL_VERSION, REFERENCE_PATH
+from app.ml.features import ALL_FEATURES, CATEGORICAL_FEATURES, NUMERIC_FEATURES
 
 DATA = ROOT / "data" / "raw" / "service_requests.csv"
 
