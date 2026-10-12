@@ -1,6 +1,8 @@
 import time
+
 from fastapi import FastAPI, HTTPException
 from prometheus_client import make_asgi_app
+
 from app.api.schemas import PredictionRequest, PredictionResponse
 from app.core.config import RISK_THRESHOLD
 from app.core.telemetry import LATENCY, log_prediction
