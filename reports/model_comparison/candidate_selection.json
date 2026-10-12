@@ -1,0 +1,20 @@
+{
+  "selection_rule": "highest validation average_precision; F1 tie-breaker",
+  "note": "Development-only candidate. No deployment or final test evaluation performed.",
+  "selected": {
+    "model": "logistic_regression",
+    "threshold": 0.55,
+    "fit_seconds": 0.0182195839999999,
+    "roc_auc": 0.730489417989418,
+    "average_precision": 0.3957267791341985,
+    "brier_score": 0.21031664635494726,
+    "precision": 0.3364737550471063,
+    "recall": 0.5952380952380952,
+    "f1": 0.4299226139294927
+  },
+  "splits": {
+    "train": 7200,
+    "validation": 2400,
+    "reserved": 2400
+  }
+}
