@@ -1,12 +1,15 @@
 import json
-from pathlib import Path
 import sys
+from pathlib import Path
+
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 import numpy as np
 import pandas as pd
+
 from app.core.config import INFERENCE_LOG, REFERENCE_PATH
 from app.ml.features import NUMERIC_FEATURES
+
 
 def psi(expected, actual, bins=10):
     edges = np.unique(np.quantile(expected, np.linspace(0,1,bins+1)))
