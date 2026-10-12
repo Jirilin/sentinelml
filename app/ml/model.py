@@ -1,9 +1,12 @@
 import json
 from functools import lru_cache
+
 import joblib
 import pandas as pd
+
 from app.core.config import METADATA_PATH, MODEL_PATH
 from app.ml.features import ALL_FEATURES
+
 
 @lru_cache(maxsize=1)
 def load_bundle():
