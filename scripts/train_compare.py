@@ -1,10 +1,12 @@
+#!/usr/bin/env python3
 """SentinelML v2: compare candidate models without changing the live API model.
 
 Run from repository root: python -m scripts.train_compare
 """
-from pathlib import Path
 import json
+import sys
 import time
+from pathlib import Path
 
 import joblib
 import numpy as np
@@ -14,16 +16,22 @@ from sklearn.ensemble import HistGradientBoostingClassifier, RandomForestClassif
 from sklearn.impute import SimpleImputer
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import (
-    average_precision_score, brier_score_loss, f1_score,
-    precision_score, recall_score, roc_auc_score,
+    average_precision_score,
+    brier_score_loss,
+    f1_score,
+    precision_score,
+    recall_score,
+    roc_auc_score,
 )
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
-from app.ml.features import ALL_FEATURES, NUMERIC_FEATURES, CATEGORICAL_FEATURES
-
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+
+from app.ml.features import ALL_FEATURES, CATEGORICAL_FEATURES, NUMERIC_FEATURES
+
 DATA = ROOT / "data/raw/service_requests.csv"
 OUT = ROOT / "reports/model_comparison"
 OUT.mkdir(parents=True, exist_ok=True)
@@ -64,7 +72,7 @@ def main():
     df = pd.read_csv(DATA)
     X, y = df[ALL_FEATURES], df["sla_breached"].astype(int)
     # This is a development split, NOT a fresh untouched benchmark.
-    X_dev, X_test, y_dev, y_test = train_test_split(
+    X_dev, X_test, y_dev, _y_test = train_test_split(
         X, y, test_size=0.2, stratify=y, random_state=SEED
     )
     X_train, X_val, y_train, y_val = train_test_split(
