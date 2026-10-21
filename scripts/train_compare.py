@@ -74,10 +74,11 @@ def main():
     print("Reserved set is not scored here; prior v1 experiments already inspected it.")
 
     candidates = {
-        "logistic_regression": LogisticRegression(max_iter=1500, class_weight="balanced", random_state=SEED),
-        "random_forest": RandomForestClassifier(
-            n_estimators=200, min_samples_leaf=5, class_weight="balanced",
-            n_jobs=-1, random_state=SEED,
+        "logistic_regression": LogisticRegression(
+            solver="liblinear",
+            max_iter=2000,
+            class_weight="balanced",
+            random_state=SEED
         ),
         "hist_gradient_boosting": HistGradientBoostingClassifier(
             max_iter=180, learning_rate=0.08, max_leaf_nodes=20,
