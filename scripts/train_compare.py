@@ -2,6 +2,7 @@
 from pathlib import Path
 import json
 import time
+import warnings
 
 import joblib
 import numpy as np
@@ -103,7 +104,19 @@ def main():
     for name, classifier in candidates.items():
         pipeline = make_pipeline(classifier)
         started = time.perf_counter()
-        pipeline.fit(X_train, y_train)
+        print(f"\nTraining model: {name}")
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always", RuntimeWarning)
+
+            pipeline.fit(X_train, y_train)
+
+        print(f"Runtime warnings during fitting: {len(caught)}")
+
+        for warning in caught:
+            print(
+                f"{warning.category.__name__}: "
+                f"{warning.message}"
+    )
         fit_seconds = time.perf_counter() - started
         prob = pipeline.predict_proba(X_val)[:, 1]
         # Select threshold on validation data only.
