@@ -1,7 +1,4 @@
-"""SentinelML v2: compare candidate models without changing the live API model.
 
-Run from repository root: python -m scripts.train_compare
-"""
 from pathlib import Path
 import json
 import time
