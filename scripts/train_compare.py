@@ -17,6 +17,10 @@ from sklearn.metrics import (
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.ensemble import (
+    RandomForestClassifier,
+    HistGradientBoostingClassifier,
+)
 
 from app.ml.features import ALL_FEATURES, NUMERIC_FEATURES, CATEGORICAL_FEATURES
 
@@ -75,13 +79,25 @@ def main():
             solver="liblinear",
             max_iter=2000,
             class_weight="balanced",
-            random_state=SEED
+            random_state=SEED,
         ),
+
+        "random_forest": RandomForestClassifier(
+            n_estimators=200,
+            min_samples_leaf=5,
+            class_weight="balanced",
+            n_jobs=-1,
+            random_state=SEED,
+        ),
+
         "hist_gradient_boosting": HistGradientBoostingClassifier(
-            max_iter=180, learning_rate=0.08, max_leaf_nodes=20,
-            class_weight="balanced", random_state=SEED,
+            max_iter=180,
+            learning_rate=0.08,
+            max_leaf_nodes=20,
+            class_weight="balanced",
+            random_state=SEED,
         ),
-    }
+}
     thresholds = np.round(np.arange(0.20, 0.81, 0.05), 2)
     rows = []
     for name, classifier in candidates.items():
