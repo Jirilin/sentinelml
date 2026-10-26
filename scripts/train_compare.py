@@ -174,11 +174,21 @@ def main():
                 example_predictions
             )
 
+            input_example = X_val.head(5).copy()
+            output_example = pipeline.predict_proba(
+                input_example
+            )
+
+            signature = infer_signature(
+                input_example,
+                output_example
+            )
+
             mlflow.sklearn.log_model(
                 sk_model=pipeline,
                 name="model",
                 signature=signature,
-                input_example=input_example
+                input_example=input_example,
             )
 
         row = {"model": name, "threshold": threshold, "fit_seconds": fit_seconds, **scores}
