@@ -1,5 +1,7 @@
 from pathlib import Path
 
+import mlflow
+import mlflow.sklearn
 import joblib
 import numpy as np
 import pandas as pd
@@ -52,6 +54,13 @@ def main():
         test_size=0.25,
         stratify=y_dev,
         random_state=SEED,
+    )
+    mlflow.set_tracking_uri(
+        f"sqlite:///{ROOT / 'mlflow.db'}"
+    )
+
+    mlflow.set_experiment(
+        "sentinelml-model-comparison"
     )
 
     models = {
@@ -116,8 +125,7 @@ def main():
             label=name,
         )
 
-        results.append({
-            "model": name,
+        scores = {
             "brier_score": brier_score_loss(
                 y_val,
                 probabilities,
@@ -136,7 +144,29 @@ def main():
                     probabilities,
                 )
             ),
-        })
+        }
+
+        results.append({"model": name, **scores})
+
+        classifier = model.named_steps["classifier"]
+        with mlflow.start_run(run_name=name):
+            mlflow.log_param("model_name", name)
+            mlflow.log_param("algorithm", type(classifier).__name__)
+            mlflow.log_param(
+                "class_weight",
+                str(classifier.get_params().get("class_weight")),
+            )
+
+            for metric_name, metric_value in scores.items():
+                mlflow.log_metric(
+                    f"validation_{metric_name}",
+                    float(metric_value),
+                )
+
+            mlflow.sklearn.log_model(
+                sk_model=model,
+                name="model",
+            )
 
     plt.xlabel("Mean Predicted Probability")
     plt.ylabel("Observed SLA Breach Frequency")
