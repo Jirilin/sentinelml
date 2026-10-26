@@ -55,14 +55,23 @@ def main():
     )
 
     models = {
-        "Logistic Regression": (
-            MODEL_DIR / "logistic_regression.joblib"
+        "LR Balanced": (
+            MODEL_DIR / "logistic_regression_balanced.joblib"
         ),
-        "Random Forest": (
-            MODEL_DIR / "random_forest.joblib"
+        "LR Unweighted": (
+            MODEL_DIR / "logistic_regression_unweighted.joblib"
         ),
-        "Gradient Boosting": (
-            MODEL_DIR / "hist_gradient_boosting.joblib"
+        "RF Balanced": (
+            MODEL_DIR / "random_forest_balanced.joblib"
+        ),
+        "RF Unweighted": (
+            MODEL_DIR / "random_forest_unweighted.joblib"
+        ),
+        "HGB Balanced": (
+            MODEL_DIR / "hist_gradient_boosting_balanced.joblib"
+        ),
+        "HGB Unweighted": (
+            MODEL_DIR / "hist_gradient_boosting_unweighted.joblib"
         ),
     }
 
