@@ -5,6 +5,8 @@ import time
 import warnings
 
 import joblib
+import mlflow
+import mlflow.sklearn
 import numpy as np
 import pandas as pd
 from sklearn.compose import ColumnTransformer
@@ -124,6 +126,9 @@ def main():
     }
     thresholds = np.round(np.arange(0.20, 0.81, 0.05), 2)
     rows = []
+    mlflow.set_tracking_uri(f"sqlite:///{ROOT / 'mlflow.db'}")
+    mlflow.set_experiment("sentinelml-model-comparison")
+
     for name, classifier in candidates.items():
         pipeline = make_pipeline(classifier)
         started = time.perf_counter()
@@ -145,6 +150,20 @@ def main():
         # Select threshold on validation data only.
         options = [(float(t), metrics(y_val, prob, float(t))) for t in thresholds]
         threshold, scores = max(options, key=lambda pair: (pair[1]["f1"], -pair[0]))
+        with mlflow.start_run(run_name=name):
+            mlflow.log_param("model_name", name)
+            mlflow.log_param("algorithm", type(classifier).__name__)
+            mlflow.log_param(
+                "class_weight", str(classifier.get_params().get("class_weight"))
+            )
+            mlflow.log_param("selected_threshold", float(threshold))
+            mlflow.log_metric("training_seconds", float(fit_seconds))
+
+            for metric_name, metric_value in scores.items():
+                mlflow.log_metric(f"validation_{metric_name}", float(metric_value))
+
+            mlflow.sklearn.log_model(sk_model=pipeline, name="model")
+
         row = {"model": name, "threshold": threshold, "fit_seconds": fit_seconds, **scores}
         rows.append(row)
         joblib.dump(pipeline, OUT / f"{name}.joblib")
