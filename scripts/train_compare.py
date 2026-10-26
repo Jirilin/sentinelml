@@ -76,14 +76,21 @@ def main():
     print("Reserved set is not scored here; prior v1 experiments already inspected it.")
 
     candidates = {
-        "logistic_regression": LogisticRegression(
+        "logistic_regression_balanced": LogisticRegression(
             solver="liblinear",
             max_iter=2000,
             class_weight="balanced",
             random_state=SEED,
         ),
 
-        "random_forest": RandomForestClassifier(
+        "logistic_regression_unweighted": LogisticRegression(
+            solver="liblinear",
+            max_iter=2000,
+            class_weight=None,
+            random_state=SEED,
+        ),
+
+        "random_forest_balanced": RandomForestClassifier(
             n_estimators=200,
             min_samples_leaf=5,
             class_weight="balanced",
@@ -91,14 +98,30 @@ def main():
             random_state=SEED,
         ),
 
-        "hist_gradient_boosting": HistGradientBoostingClassifier(
+        "random_forest_unweighted": RandomForestClassifier(
+            n_estimators=200,
+            min_samples_leaf=5,
+            class_weight=None,
+            n_jobs=-1,
+            random_state=SEED,
+        ),
+
+        "hist_gradient_boosting_balanced": HistGradientBoostingClassifier(
             max_iter=180,
             learning_rate=0.08,
             max_leaf_nodes=20,
             class_weight="balanced",
             random_state=SEED,
         ),
-}
+
+        "hist_gradient_boosting_unweighted": HistGradientBoostingClassifier(
+            max_iter=180,
+            learning_rate=0.08,
+            max_leaf_nodes=20,
+            class_weight=None,
+            random_state=SEED,
+        ),
+    }
     thresholds = np.round(np.arange(0.20, 0.81, 0.05), 2)
     rows = []
     for name, classifier in candidates.items():
