@@ -7,6 +7,7 @@ import warnings
 import joblib
 import mlflow
 import mlflow.sklearn
+from mlflow.models import infer_signature
 import numpy as np
 import pandas as pd
 from sklearn.compose import ColumnTransformer
@@ -162,7 +163,23 @@ def main():
             for metric_name, metric_value in scores.items():
                 mlflow.log_metric(f"validation_{metric_name}", float(metric_value))
 
-            mlflow.sklearn.log_model(sk_model=pipeline, name="model")
+            input_example = X_val.head(5).copy()
+
+            example_predictions = pipeline.predict_proba(
+                input_example
+            )
+
+            signature = infer_signature(
+                input_example,
+                example_predictions
+            )
+
+            mlflow.sklearn.log_model(
+                sk_model=pipeline,
+                name="model",
+                signature=signature,
+                input_example=input_example
+            )
 
         row = {"model": name, "threshold": threshold, "fit_seconds": fit_seconds, **scores}
         rows.append(row)
